@@ -6,10 +6,11 @@ import { Student } from '../models/student';
 export class StudentService {
 
   private students: Student[];
+  private idStudenSelected = 0;
   constructor() {
     this.students=[
       {
-        contorlnumber: '18401082',
+        controlnumber: '18401082',
         age:22,
         career:'ISC',
         curp:'ABCD1223652SDH2',
@@ -18,7 +19,7 @@ export class StudentService {
         nip: 5144
       },
       {
-        contorlnumber: '18401081',
+        controlnumber: '18401081',
         age:22,
         career:'ISC',
         curp:'JDC1223652SDH2',
@@ -27,7 +28,7 @@ export class StudentService {
         nip: 5143
       },
       {
-        contorlnumber: '18401080',
+        controlnumber: '18401080',
         age:22,
         career:'ISC',
         curp:'BRD1223652SDH2',
@@ -40,9 +41,20 @@ export class StudentService {
   public getStudents(): Student[] {
     return this.students;
   }
+  public getEspecificStudents(id: number): Student {
+    return this.students[id];
+  }
   public removeStudent(index: number){
     this.students.splice(index, 1); //Eliminar elemento de un array splice(index,cuantos elementos a partir del index)
   }
-
+  public getStudentSelected() {
+    return this.students[this.idStudenSelected];
+  }
+  public getIdStudentSelected() {
+    return this.idStudenSelected;
+  }
+  public setStudentSelected(id) {
+    this.idStudenSelected = id;
+  }
 }
 

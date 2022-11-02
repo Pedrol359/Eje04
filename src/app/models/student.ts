@@ -1,5 +1,5 @@
 export class Student {
-    contorlnumber: string;
+    controlnumber: string;
     name: string;
     curp: string;
     age: number;
