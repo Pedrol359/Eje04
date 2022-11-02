@@ -40,5 +40,9 @@ export class StudentService {
   public getStudents(): Student[] {
     return this.students;
   }
+  public removeStudent(index: number){
+    this.students.splice(index, 1); //Eliminar elemento de un array splice(index,cuantos elementos a partir del index)
+  }
+
 }
 
