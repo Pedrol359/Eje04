@@ -56,5 +56,8 @@ export class StudentService {
   public setStudentSelected(id) {
     this.idStudenSelected = id;
   }
+  public addStudent(student:Student) {
+    this.students.push(student);
+  }
 }
 
