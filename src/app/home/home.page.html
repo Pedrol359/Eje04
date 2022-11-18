@@ -1,5 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button fill="outline" (click)="logOut()">
+      Log out        
+      <!-- <ion-icon slot="end" name="create"></ion-icon> -->
+      <ion-icon name="log-out-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
     <ion-title>
       Lista de alumnos
     </ion-title>
@@ -10,15 +18,22 @@
     <ion-row>
       <ion-col>
         <ion-list>
-            <ion-item-sliding side="end" *ngFor="let item of students; let i = index" (click)="goToInfoUser(i)">
+            <ion-item-sliding side="end" *ngFor="let item of students; let i = index" >
               <ion-item-options side="start" (ionSwipe) = "removeStudent(i)">
                 <ion-item-option color="danger">
-                  Deleted
-                  <ion-icon slot="start" name="archive"></ion-icon>
+                  Eliminar
+                  <ion-icon slot="start" name="trash"></ion-icon>
                 </ion-item-option>
-                
               </ion-item-options>
-              <ion-item>
+
+              <ion-item-options side="end" (ionSwipe) = "updateStudent(i)">
+                <ion-item-option color="primary">
+                  Editar
+                  <ion-icon slot="start" name="create-outline"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+
+              <ion-item (click)="goToInfoUser(i)">
                 <ion-label>
                   {{item.name}} {{item.controlnumber}}
                 </ion-label>
@@ -27,4 +42,24 @@
         </ion-list>
       </ion-col>
     </ion-row>
+    <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="options_deploy">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+        
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button (click)="agregarProductos()">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="verCarrito()">
+          <ion-icon name="cart-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab> -->
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="goTo('add-student')">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>
+

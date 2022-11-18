@@ -1,21 +1,21 @@
+import { Component, OnInit } from '@angular/core';
 import { StudentService } from './../services/student.service';
 import { Student } from './../models/student';
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../services/session.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-add-student',
-  templateUrl: './add-student.page.html',
-  styleUrls: ['./add-student.page.scss'],
+  selector: 'app-update-student',
+  templateUrl: './update-student.page.html',
+  styleUrls: ['./update-student.page.scss'],
 })
-export class AddStudentPage implements OnInit {
-
+export class UpdateStudentPage implements OnInit {
   public student:Student = new Student();
   public myForm: FormGroup;
   public validationMessages: Object;
+  public validateAll = false;
   public careers = [
     {
       value: 'isc',
@@ -31,6 +31,7 @@ export class AddStudentPage implements OnInit {
     }
   ]
   constructor(private studentService: StudentService, private fb: FormBuilder, private validate:SessionService, private router: Router,private toastController: ToastController) { 
+    this.student = this.studentService.getStudentSelected();
     if (!this.validate.getValidate()) {
       this.router.navigate(['/login']);
       return;
@@ -89,23 +90,19 @@ export class AddStudentPage implements OnInit {
         { type: 'pattern', message: 'Revise que la URL de su foto sea correcta'}
       ]
     }
-    
-  }
+    this.myForm.get('controlNumber').setValue(this.student.controlnumber);
+    this.myForm.get('name').setValue(this.student.name);
+    this.myForm.get('curp').setValue(this.student.curp);
+    this.myForm.get('age').setValue(this.student.age);
+    this.myForm.get('nip').setValue(this.student.nip);
+    this.myForm.get('email').setValue(this.student.email);
+    this.myForm.get('career').setValue(this.student.career.toLowerCase());
+    this.myForm.get('photo').setValue(this.student.photo);
 
-  public newStudent() {
-    //Construir el objeto
-    this.student.controlnumber = this.myForm.get('controlNumber').value;
-    this.student.name = this.myForm.get('name').value;
-    this.student.curp = this.myForm.get('curp').value;
-    this.student.age = this.myForm.get('age').value;
-    this.student.nip = this.myForm.get('nip').value;
-    this.student.email = this.myForm.get('email').value;
-    this.student.career = this.myForm.get('career').value;
-    this.student.photo = this.myForm.get('photo').value;
-    console.log(this.student);
+    console.log(    this.myForm.get('controlNumber').dirty);
     
-    this.studentService.addStudent(this.student)
-
+    
+    
   }
 
   validateBox(){
@@ -125,21 +122,25 @@ export class AddStudentPage implements OnInit {
     });
     return validado;
   }
+  public updateStudent() {
+    //Construir el objeto
+    this.student.controlnumber = this.myForm.get('controlNumber').value;
+    this.student.name = this.myForm.get('name').value;
+    this.student.curp = this.myForm.get('curp').value;
+    this.student.age = this.myForm.get('age').value;
+    this.student.nip = this.myForm.get('nip').value;
+    this.student.email = this.myForm.get('email').value;
+    this.student.career = this.myForm.get('career').value;
+    this.student.photo = this.myForm.get('photo').value;
+    console.log(this.student);
+
+  }
   submitForm() {
-    // this.myForm.get('controlNumber').setValue('18401082');
-    // this.myForm.get('name').setValue('Pedro');
-    // this.myForm.get('curp').setValue('AIBP000629HNTVRDA3');
-    // this.myForm.get('age').setValue(23);
-    // this.myForm.get('nip').setValue(1523);
-    // this.myForm.get('email').setValue('pedro.avila@gmail.com');
-    // this.myForm.get('career').setValue('ISC');
-    // this.myForm.get('photo').setValue('https://heraldodemexico.com.mx/u/fotografias/m/2021/5/25/f1280x720-375307_506982_5050.jpg');
     if (!this.validateBox()){      
       return;
     }
-   
-      this.showToast('Estudiante Agregado','primary');
-      this.newStudent();
+      this.showToast('Estudiante actualizado','primary');
+      this.updateStudent();
       this.router.navigate(['/home']);    
   }
   async showToast(message:string, color: 'primary' | 'danger' =  'danger') {
@@ -158,4 +159,3 @@ export class AddStudentPage implements OnInit {
   }
 
 }
-

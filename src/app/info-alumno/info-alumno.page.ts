@@ -2,6 +2,8 @@ import { StudentService } from './../services/student.service';
 
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../models/student';
+import { Router } from '@angular/router';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-info-alumno',
@@ -10,24 +12,23 @@ import { Student } from '../models/student';
 })
 export class InfoAlumnoPage implements OnInit {
   public student: Student;
-  constructor(private studentService: StudentService) {
-    // Load student
+  constructor(private studentService: StudentService, private router: Router, private validate:SessionService) {
     this.student = this.studentService.getStudentSelected();
+    if (!this.validate.getValidate()) {
+      this.router.navigate(['/login']);
+      return;
+    } 
+    // Load student
    }
   ngOnInit() {
+    if (!this.validate.getValidate()) {
+      this.router.navigate(['/login']);
+      return;
+    } 
   }
-
-  // public uboCambioEnInfo(): boolean {
-  //   const studentOriginal = this.studentService.getStudentSelected();
-  //   if (studentOriginal.name !== this.student.name
-  //     || studentOriginal.controlnumber !== this.student.controlnumber
-  //     || studentOriginal.age !== this.student.age
-  //     || studentOriginal.email !== this.student.email
-  //     || studentOriginal.nip !== this.student.nip
-  //     || studentOriginal.curp !== this.student.curp
-  //     || studentOriginal.career !== this.student.career) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  
+  public logOut(){
+    this.validate.setValidate(false);
+    this.router.navigate(['/login']);
+  }
 }

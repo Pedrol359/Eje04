@@ -13,29 +13,32 @@ export class StudentService {
         controlnumber: '18401082',
         age:22,
         career:'ISC',
-        curp:'ABCD1223652SDH2',
+        curp:'AIBP000629HNTVRDA3',
         email:'peavilabe@ittepic.edu.mx',
         name:'Pedro Avila Bermudez',
-        nip: 5144
-      },
-      {
-        controlnumber: '18401081',
-        age:22,
-        career:'ISC',
-        curp:'JDC1223652SDH2',
-        email:'itxalja@ittepic.edu.mx',
-        name: 'Juan Axel Jacobo Covarrubia',
-        nip: 5143
+        nip: 5144,
+        photo:'../../assets/pedro.png'
       },
       {
         controlnumber: '18401080',
         age:22,
         career:'ISC',
-        curp:'BRD1223652SDH2',
+        curp:'GOFB001124HNTNLRA3',
         email:'brdas@ittepic.edu.mx',
         name: 'Braddly Addiel Gonzalez Flores',
-        nip: 5142
-      }
+        nip: 5142,
+        photo:'../../assets/brad.png'
+      },
+      {
+        controlnumber: '18401081',
+        age:22,
+        career:'ISC',
+        curp:'JACJ000624HNTCVNA5',
+        email:'itxalja@ittepic.edu.mx',
+        name: 'Juan Axel Jacobo Covarrubia',
+        nip: 5143,
+        photo:'../../assets/jacobo.png'
+      },
     ];
   }
   public getStudents(): Student[] {
@@ -53,7 +56,7 @@ export class StudentService {
   public getIdStudentSelected() {
     return this.idStudenSelected;
   }
-  public setStudentSelected(id) {
+  public setStudentSelected(id:number) {
     this.idStudenSelected = id;
   }
   public addStudent(student:Student) {
